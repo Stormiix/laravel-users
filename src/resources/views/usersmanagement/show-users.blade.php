@@ -16,7 +16,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         @if(config('laravelusers.enablePackageBootstapAlerts'))
             <div class="row">
                 <div class="col-sm-12">
@@ -80,18 +80,18 @@
                         <div class="table-responsive users-table">
                             <table class="table table-striped table-sm data-table">
                                 <caption id="user_count">
-                                    {!! trans_choice('laravelusers::laravelusers.users-table.caption', 1, ['userscount' => $users->count()]) !!}
+                                    {{ trans_choice('laravelusers::laravelusers.users-table.caption', 1, ['userscount' => $users->count()]) }}
                                 </caption>
                                 <thead class="thead">
                                     <tr>
                                         <th>{!! trans('laravelusers::laravelusers.users-table.id') !!}</th>
                                         <th>{!! trans('laravelusers::laravelusers.users-table.name') !!}</th>
+                                        <th>CIN</th>
+                                        <th>PERMIS</th>
+                                        <th>N° Tel</th>
                                         <th class="hidden-xs">{!! trans('laravelusers::laravelusers.users-table.email') !!}</th>
-                                        @if(config('laravelusers.rolesEnabled'))
-                                            <th class="hidden-sm hidden-xs">{!! trans('laravelusers::laravelusers.users-table.role') !!}</th>
-                                        @endif
+                                        <th class="hidden-sm hidden-xs hidden-md">Role</th>
                                         <th class="hidden-sm hidden-xs hidden-md">{!! trans('laravelusers::laravelusers.users-table.created') !!}</th>
-                                        <th class="hidden-sm hidden-xs hidden-md">{!! trans('laravelusers::laravelusers.users-table.updated') !!}</th>
                                         <th class="no-search no-sort">{!! trans('laravelusers::laravelusers.users-table.actions') !!}</th>
                                         <th class="no-search no-sort"></th>
                                         <th class="no-search no-sort"></th>
@@ -102,25 +102,30 @@
                                         <tr>
                                             <td>{{$user->id}}</td>
                                             <td>{{$user->name}}</td>
+											<td>{{$user->cin}}</td>
+											<td class="hidden-xs">{{$user->permis}}</td>
+											<td class="hidden-xs">{{$user->phone}}</td>
                                             <td class="hidden-xs">{{$user->email}}</td>
-                                            @if(config('laravelusers.rolesEnabled'))
-                                                <td class="hidden-sm hidden-xs">
-                                                    @foreach ($user->roles as $user_role)
-                                                        @if ($user_role->name == 'User')
-                                                            @php $badgeClass = 'primary' @endphp
-                                                        @elseif ($user_role->name == 'Admin')
-                                                            @php $badgeClass = 'warning' @endphp
-                                                        @elseif ($user_role->name == 'Unverified')
-                                                            @php $badgeClass = 'danger' @endphp
-                                                        @else
-                                                            @php $badgeClass = 'dark' @endphp
-                                                        @endif
-                                                        <span class="badge badge-{{$badgeClass}}">{{ $user_role->name }}</span>
-                                                    @endforeach
-                                                </td>
-                                            @endif
+                                            <td class="hidden-sm hidden-xs">
+                                                @if ($user->type == 'default')
+                                                    @php $badgeClass = 'primary' @endphp
+                                                @elseif ($user->type == 'admin')
+                                                    @php $badgeClass = 'success' @endphp
+                                                @elseif ($user->type == 'super')
+                                                    @php $badgeClass = 'warning' @endphp
+                                                @endif
+                                                <span class="badge badge-{{$badgeClass}}">
+                                                
+                                                 @if ($user->type == 'default')
+                                                 Normal
+                                                 @elseif ($user->type == 'admin')
+                                                 Admin
+                                                @else
+                                                Super Admin
+                                                 @endif
+                                                </span>
+                                            </td>
                                             <td class="hidden-sm hidden-xs hidden-md">{{$user->created_at}}</td>
-                                            <td class="hidden-sm hidden-xs hidden-md">{{$user->updated_at}}</td>
                                             <td>
                                                 {!! Form::open(array('url' => 'users/' . $user->id, 'class' => '', 'data-toggle' => 'tooltip', 'title' => trans('laravelusers::laravelusers.tooltips.delete'))) !!}
                                                     {!! Form::hidden('_method', 'DELETE') !!}
