@@ -22,8 +22,8 @@
                                 '<td></td>' +
                                 '<td></td>' +
                                 '<td></td>' +
-                                '<td></td>' +
                                 '<td class="hidden-xs"></td>' +
+                                '<td class="hidden-sm hidden-xs hidden-md"></td>' +
                                 '<td class="hidden-sm hidden-xs hidden-md"></td>' +
                                 '<td class="hidden-sm hidden-xs hidden-md"></td>' +
 								'<td class="no-search no-sort"></td>' +
@@ -67,7 +67,6 @@
 							rolesHtml = '<span class="badge badge-' + roleClass + '">' + role + '</span> ';
                             
                             resultsContainer.append('<tr>' +
-                                '<td>' + val.id + '</td>' +
                                 '<td>' + val.name + '</td>' +
                                 '<td>' + val.cin + '</td>' +
                                 '<td>' + val.permis + '</td>' +
@@ -75,6 +74,7 @@
                                 '<td class="hidden-xs">' + val.email + '</td>' +
                                 '<td class="hidden-sm hidden-xs"> ' + rolesHtml  +'</td>' +
                                 '<td class="hidden-sm hidden-xs hidden-md">' + val.created_at + '</td>' +
+                                '<td class="hidden-sm hidden-xs hidden-md">' + val.updated_at + '</td>' +
                                 '<td>' + deleteCellHtml + '</td>' +
                                 '<td>' + showCellHtml + '</td>' +
                                 '<td>' + editCellHtml + '</td>' +
