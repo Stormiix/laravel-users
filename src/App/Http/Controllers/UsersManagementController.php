@@ -161,7 +161,7 @@ class UsersManagementController extends Controller
 
         $user = config('laravelusers.defaultUserModel')::find($id);
         $config = array();
-        $config['center'] = $user->location;
+        $config['center'] = $user->location ?  $user->location :  $user->ville;
         app('map')->initialize($config);
 
         function random_color()
@@ -361,6 +361,7 @@ class UsersManagementController extends Controller
             ->orWhere('date_naissance', 'like', $searchTerm . '%')
             ->orWhere('phone', 'like', $searchTerm . '%')
             ->orWhere('email', 'like', $searchTerm . '%')->get();
+
         // Attach roles to results
         foreach ($results as $result) {
             $roles = [
