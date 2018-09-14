@@ -353,8 +353,14 @@ class UsersManagementController extends Controller
 
         $results = config('laravelusers.defaultUserModel')::where('id', 'like', $searchTerm . '%')
             ->orWhere('name', 'like', $searchTerm . '%')
+            ->orWhere('cin', 'like', $searchTerm . '%')
+            ->orWhere('permis', 'like', $searchTerm . '%')
+            ->orWhere('adresse', 'like', $searchTerm . '%')
+            ->orWhere('ville', 'like', $searchTerm . '%')
+            ->orWhere('name', 'like', $searchTerm . '%')
+            ->orWhere('date_naissance', 'like', $searchTerm . '%')
+            ->orWhere('phone', 'like', $searchTerm . '%')
             ->orWhere('email', 'like', $searchTerm . '%')->get();
-
         // Attach roles to results
         foreach ($results as $result) {
             $roles = [
