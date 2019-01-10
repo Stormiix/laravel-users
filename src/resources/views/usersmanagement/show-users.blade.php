@@ -86,6 +86,7 @@
                                     <tr>
                                         <th>{!! trans('laravelusers::laravelusers.users-table.id') !!}</th>
                                         <th>{!! trans('laravelusers::laravelusers.users-table.name') !!}</th>
+					<th>Nbre Clients</th>
                                         <th>CIN</th>
                                         <th>PERMIS</th>
                                         <th>N° Tel</th>
@@ -101,7 +102,8 @@
                                     @foreach($users as $user)
                                         <tr>
                                             <td>{{$user->id}}</td>
-                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->name}}</td> 
+						<th>{{$user->clients->count()}}</th>
 											<td>{{$user->cin}}</td>
 											<td class="hidden-xs">{{$user->permis}}</td>
 											<td class="hidden-xs">{{$user->phone}}</td>
